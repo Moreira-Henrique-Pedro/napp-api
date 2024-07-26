@@ -6,8 +6,8 @@ type Stock struct {
 	ID        int64
 	Nome      string
 	Estoque   Estoque
-	PrecoDe   int64
-	PrecoPor  int64
+	PrecoDe   float64
+	PrecoPor  float64
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt time.Time
