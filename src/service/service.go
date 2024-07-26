@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"errors"
 	"log/slog"
 	"time"
 
@@ -35,21 +34,14 @@ func (s *StockService) CreateStock(stock model.Stock) (int64, error) {
 		return 0, err
 	}
 
-	var existingID int64
-	query := `SELECT id FROM stocks WHERE codigo = $1`
-	err := s.db.QueryRow(context.Background(), query, stock.ID).Scan(&existingID)
-	if err == nil {
-		return 0, errors.New("código já existe")
-	}
-
-	query = `
+	query := `
 		INSERT INTO stocks (ID, nome, estoque_total, estoque_corte, estoque_disponivel, preco_de, preco_por, created_at, updated_at)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 		RETURNING id;
 	`
 
 	var id int64
-	err = s.db.QueryRow(context.Background(), query,
+	err := s.db.QueryRow(context.Background(), query,
 		stock.ID,
 		stock.Nome,
 		stock.Estoque.EstoqueTotal,
