@@ -1,8 +1,5 @@
 # napp-api
 
-## entregador
-
-CRUD service with PostgreSQL.
 
 ## Requirements
 
